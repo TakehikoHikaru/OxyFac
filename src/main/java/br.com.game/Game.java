@@ -1,3 +1,4 @@
+package br.com.game;
 
 import br.com.game.entities.Entity;
 import br.com.game.entities.Player;
@@ -29,23 +30,23 @@ public class Game extends Canvas implements Runnable, KeyListener {
     private BufferedImage image;
 
     public List<Entity> entityList;
-    public SpriteSheet spriteSheet;
+    public static SpriteSheet spriteSheet;
     public Player player;
 
     public Game() {
         addKeyListener(this);
         this.setPreferredSize(new Dimension(width, height));
         initFrame();
-        image = new BufferedImage(width,height,BufferedImage.TYPE_INT_RGB);
+        image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
         entityList = new ArrayList<Entity>();
         spriteSheet = new SpriteSheet("/SpritesSheets.png");
 
-        player = new Player(0,0,16,16,spriteSheet.getSprite(0,0,64,64));
+        player = new Player(0, 0, 16, 16, spriteSheet.getSprite(0, 0, 64, 64));
         entityList.add(player);
     }
 
-    public void initFrame(){
-        frame = new JFrame("Game");
+    public void initFrame() {
+        frame = new JFrame("br.com.game.Game");
         frame.add(this);
         frame.pack();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -113,21 +114,21 @@ public class Game extends Canvas implements Runnable, KeyListener {
 
     public void render() {
         BufferStrategy bs = this.getBufferStrategy();
-        if(bs == null){
+        if (bs == null) {
             this.createBufferStrategy(3);
             return;
         }
 
         Graphics g = image.getGraphics();
         g.setColor(Color.red);
-        g.fillRect(0,0,width,height);
+        g.fillRect(0, 0, width, height);
         for (int i = 0; i < entityList.size(); i++) {
             Entity entity = entityList.get(i);
             entity.render(g);
         }
         g.dispose();
         g = bs.getDrawGraphics();
-        g.drawImage(image,0,0,width,height,null);
+        g.drawImage(image, 0, 0, width, height, null);
         bs.show();
     }
 
@@ -137,31 +138,31 @@ public class Game extends Canvas implements Runnable, KeyListener {
     }
 
     public void keyPressed(KeyEvent e) {
-        if(e.getKeyCode() == KeyEvent.VK_W){
+        if (e.getKeyCode() == KeyEvent.VK_W) {
             System.out.println("up");
             player.up = true;
-        }else if(e.getKeyCode() == KeyEvent.VK_S){
+        } else if (e.getKeyCode() == KeyEvent.VK_S) {
             player.down = true;
         }
 
-        if(e.getKeyCode() == KeyEvent.VK_A){
+        if (e.getKeyCode() == KeyEvent.VK_A) {
             player.left = true;
-        }else if(e.getKeyCode() == KeyEvent.VK_D){
+        } else if (e.getKeyCode() == KeyEvent.VK_D) {
             player.rigth = true;
         }
     }
 
     public void keyReleased(KeyEvent e) {
-        if(e.getKeyCode() == KeyEvent.VK_W){
+        if (e.getKeyCode() == KeyEvent.VK_W) {
             System.out.println("up");
             player.up = false;
-        }else if(e.getKeyCode() == KeyEvent.VK_S){
+        } else if (e.getKeyCode() == KeyEvent.VK_S) {
             player.down = false;
         }
 
-        if(e.getKeyCode() == KeyEvent.VK_A){
+        if (e.getKeyCode() == KeyEvent.VK_A) {
             player.left = false;
-        }else if(e.getKeyCode() == KeyEvent.VK_D){
+        } else if (e.getKeyCode() == KeyEvent.VK_D) {
             player.rigth = false;
         }
     }
