@@ -3,6 +3,7 @@ package br.com.game;
 import br.com.game.entities.Entity;
 import br.com.game.entities.Player;
 import br.com.game.grafics.SpriteSheet;
+import br.com.game.world.World;
 
 import javax.swing.*;
 import java.awt.*;
@@ -31,15 +32,22 @@ public class Game extends Canvas implements Runnable, KeyListener {
 
     public List<Entity> entityList;
     public static SpriteSheet spriteSheet;
+
+    public static World world;
+
     public Player player;
 
     public Game() {
         addKeyListener(this);
         this.setPreferredSize(new Dimension(width, height));
         initFrame();
+        //Inicia Objetos
+
         image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
         entityList = new ArrayList<Entity>();
         spriteSheet = new SpriteSheet("/SpritesSheets.png");
+
+        world = new World("/Map.png");
 
         player = new Player(0, 0, 16, 16, spriteSheet.getSprite(0, 0, 64, 64));
         entityList.add(player);
@@ -122,6 +130,10 @@ public class Game extends Canvas implements Runnable, KeyListener {
         Graphics g = image.getGraphics();
         g.setColor(Color.red);
         g.fillRect(0, 0, width, height);
+
+        //Renderiza o Mundo
+        world.Render(g);
+        //Renderiza Entities
         for (int i = 0; i < entityList.size(); i++) {
             Entity entity = entityList.get(i);
             entity.render(g);
