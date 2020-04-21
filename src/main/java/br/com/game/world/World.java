@@ -15,25 +15,29 @@ public class World {
         try {
             BufferedImage map = ImageIO.read(getClass().getResource(path));
             int[] pixels = new int[map.getWidth() * map.getHeight()];
+
             tiles = new Tile[map.getWidth() * map.getHeight()];
+
             width = map.getWidth();
             heigth = map.getHeight();
+
             map.getRGB(0,0,map.getWidth(),map.getHeight(),pixels,0,map.getWidth());
 
             //lê os pixels
-            for (int i = 0; i < map.getWidth() ; i++) {
-                for (int j = 0; j < map.getHeight() ; j++) {
-                    int pixel = pixels[i + (j * map.getWidth())] ;
+            for (int xx = 0; xx < map.getWidth() ; xx++) {
+                for (int yy = 0; yy < map.getHeight() ; yy++) {
+
+                    int pixel = pixels[xx + (yy * map.getWidth())] ;
+
                     if (pixel == 0xFF000000){
-                        //Chão
-                        tiles[i + (j * map.getWidth())] = new FloorTile(Tile.Grass_01,i,j);
+                        tiles[xx + (yy* width)] = new FloorTile(Tile.Grass_01,xx*64,yy*64);
                     }else if(pixel == 0xFFFFFFFF){
-                        tiles[i + (j * map.getWidth())] = new FloorTile(Tile.Grass_01,i,j);
-                    }else if(pixel == 0xFF3300FF){
-                        tiles[i + (j * map.getWidth())] = new FloorTile(Tile.Grass_01,i,j);
+                        tiles[xx + (yy* width)] = new WallTile(Tile.Wall_01,xx*64,yy*64);
+                    }else if(pixel == 0xFF0400FF){
+                        tiles[xx + (yy* width)] = new FloorTile(Tile.Grass_01,xx*64,yy*64);
                     }
                     else{
-                        tiles[i + (j * map.getWidth())] = new FloorTile(Tile.Grass_01,i,j);
+                        tiles[xx + (yy* width)] = new FloorTile(Tile.Grass_01,xx*64,yy*64);
                     }
                 }
             }
@@ -43,9 +47,9 @@ public class World {
     }
 
     public void Render(Graphics g){
-        for (int i = 0; i < width ; i++) {
-            for (int j = 0; j < heigth; j++) {
-                Tile tile = tiles[i +(j*width)];
+        for (int xx = 0; xx < width ; xx++) {
+            for (int yy = 0; yy < heigth; yy++) {
+                Tile tile = tiles[xx +(yy*width)];
                 tile.render(g);
             }
         }
