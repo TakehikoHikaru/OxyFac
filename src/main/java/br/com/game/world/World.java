@@ -1,5 +1,10 @@
 package br.com.game.world;
 
+import br.com.game.Game;
+import br.com.game.entities.Enemy;
+import br.com.game.entities.Entity;
+import br.com.game.entities.LifePack;
+
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -29,16 +34,23 @@ public class World {
 
                     int pixel = pixels[xx + (yy * map.getWidth())] ;
 
+                    tiles[xx + (yy* width)] = new FloorTile(Tile.Grass_01,xx*64,yy*64);
                     if (pixel == 0xFF000000){
                         tiles[xx + (yy* width)] = new FloorTile(Tile.Grass_01,xx*64,yy*64);
                     }else if(pixel == 0xFFFFFFFF){
                         tiles[xx + (yy* width)] = new WallTile(Tile.Wall_01,xx*64,yy*64);
                     }else if(pixel == 0xFF0400FF){
-                        tiles[xx + (yy* width)] = new FloorTile(Tile.Grass_01,xx*64,yy*64);
+                    //Player
+                        Game.player.setX(xx*64);
+                        Game.player.setY(yy*64);
+                    }else if(pixel == 0xFFFF0000){
+                        //Enemy
+                        Game.entityList.add(new Enemy(xx*64,yy*64,64,64, Entity.enemy));
+                    }else if(pixel == 0xFF0094FF){
+                        //LifePack
+                        Game.entityList.add(new LifePack(xx*64,yy*64,64,64, Entity.life));
                     }
-                    else{
-                        tiles[xx + (yy* width)] = new FloorTile(Tile.Grass_01,xx*64,yy*64);
-                    }
+
                 }
             }
         } catch (IOException e) {

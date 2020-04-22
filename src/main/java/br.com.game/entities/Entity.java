@@ -1,9 +1,14 @@
 package br.com.game.entities;
 
+import br.com.game.Game;
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class Entity {
+
+    public static BufferedImage life = Game.spriteSheet.getSprite(64*3,64,64,64);
+    public static BufferedImage enemy= Game.spriteSheet.getSprite(0,64*2,64,64);
 
     protected int x;
     protected int y;
