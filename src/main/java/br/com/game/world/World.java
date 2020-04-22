@@ -1,6 +1,7 @@
 package br.com.game.world;
 
 import br.com.game.Game;
+import br.com.game.ImageSize;
 import br.com.game.entities.Enemy;
 import br.com.game.entities.Entity;
 import br.com.game.entities.LifePack;
@@ -34,21 +35,21 @@ public class World {
 
                     int pixel = pixels[xx + (yy * map.getWidth())] ;
 
-                    tiles[xx + (yy* width)] = new FloorTile(Tile.Grass_01,xx*64,yy*64);
+                    tiles[xx + (yy* width)] = new FloorTile(Tile.Grass_01,xx*ImageSize.Size,yy*ImageSize.Size);
                     if (pixel == 0xFF000000){
-                        tiles[xx + (yy* width)] = new FloorTile(Tile.Grass_01,xx*64,yy*64);
+                        tiles[xx + (yy* width)] = new FloorTile(Tile.Grass_01,xx*ImageSize.Size,yy*ImageSize.Size);
                     }else if(pixel == 0xFFFFFFFF){
-                        tiles[xx + (yy* width)] = new WallTile(Tile.Wall_01,xx*64,yy*64);
+                        tiles[xx + (yy* width)] = new WallTile(Tile.Wall_01,xx*ImageSize.Size,yy*ImageSize.Size);
                     }else if(pixel == 0xFF0400FF){
                     //Player
-                        Game.player.setX(xx*64);
-                        Game.player.setY(yy*64);
+                        Game.player.setX(xx*ImageSize.Size);
+                        Game.player.setY(yy*ImageSize.Size);
                     }else if(pixel == 0xFFFF0000){
                         //Enemy
-                        Game.entityList.add(new Enemy(xx*64,yy*64,64,64, Entity.enemy));
+                        Game.entityList.add(new Enemy(xx * ImageSize.Size,yy * ImageSize.Size,ImageSize.Size,ImageSize.Size, Entity.enemy));
                     }else if(pixel == 0xFF0094FF){
                         //LifePack
-                        Game.entityList.add(new LifePack(xx*64,yy*64,64,64, Entity.life));
+                        Game.entityList.add(new LifePack(xx * ImageSize.Size,yy * ImageSize.Size,ImageSize.Size,ImageSize.Size, Entity.life));
                     }
 
                 }

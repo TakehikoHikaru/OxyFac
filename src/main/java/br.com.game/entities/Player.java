@@ -1,6 +1,7 @@
 package br.com.game.entities;
 
 import br.com.game.Game;
+import br.com.game.world.Camera;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -66,20 +67,23 @@ public class Player extends Entity {
                 }
             }
         }
+
+        Camera.setX( this.getX()-(Game.width/2));
+        Camera.setY( this.getY()-(Game.height/2));
     }
 
     @Override
     public void render(Graphics g) {
         if (stay == stayRigth){
-            g.drawImage(rigthPlayer[index],this.getX(),this.getY(),null);
+            g.drawImage(rigthPlayer[index],this.getX()- Camera.getX(),this.getY()- Camera.getY(),null);
         }else if (stay == stayLeft){
-            g.drawImage(leftPlayer[index],this.getX(),this.getY(),null);
+            g.drawImage(leftPlayer[index],this.getX()- Camera.getX(),this.getY()- Camera.getY(),null);
         }
 
         if (stay == stayUp){
-            g.drawImage(upPlayer[index],this.getX(),this.getY(),null);
+            g.drawImage(upPlayer[index],this.getX()- Camera.getX(),this.getY()- Camera.getY(),null);
         }else if(stay == stayDown){
-            g.drawImage(downPlayer[index],this.getX(),this.getY(),null);
+            g.drawImage(downPlayer[index],this.getX()- Camera.getX(),this.getY() - Camera.getY(),null);
         }
     }
 }

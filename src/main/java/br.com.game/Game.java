@@ -24,8 +24,8 @@ public class Game extends Canvas implements Runnable, KeyListener {
     private boolean isRunning;
     private Thread thread;
 
-    private final int width = 1360;
-    private final int height = 768;
+    public static final int width = 1360;
+    public static final int height = 768;
     private final int scale = 4;
 
     private BufferedImage image;
@@ -47,7 +47,7 @@ public class Game extends Canvas implements Runnable, KeyListener {
         entityList = new ArrayList<Entity>();
         spriteSheet = new SpriteSheet("/SpritesSheets.png");
 
-        player = new Player(0, 0, 64, 64, spriteSheet.getSprite(0, 0, 64, 64));
+        player = new Player(0, 0, ImageSize.Size, ImageSize.Size, spriteSheet.getSprite(0, 0, ImageSize.Size, ImageSize.Size));
         entityList.add(player);
 
         world = new World("/Map.png");
