@@ -1,7 +1,9 @@
 package br.com.game.entities;
 
 import br.com.game.Game;
+import br.com.game.ImageSize;
 import br.com.game.world.Camera;
+import br.com.game.world.World;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -68,8 +70,8 @@ public class Player extends Entity {
             }
         }
 
-        Camera.setX( this.getX()-(Game.width/2));
-        Camera.setY( this.getY()-(Game.height/2));
+        Camera.setX(Camera.clamp( this.getX()-(Game.width/2),0, World.width* ImageSize.Size - Game.width));
+        Camera.setY( Camera.clamp(this.getY()-(Game.height/2),0,World.heigth * ImageSize.Size - Game.height));
     }
 
     @Override

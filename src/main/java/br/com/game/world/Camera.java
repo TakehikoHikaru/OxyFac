@@ -21,4 +21,14 @@ public class Camera {
     public static void setY(int y) {
         Camera.y = y;
     }
+
+    public  static int clamp(int value, int min , int max){
+        if(value <= min){
+            value = min;
+        }
+        if(value >= max){
+            value = max;
+        }
+        return value;
+    }
 }
