@@ -13,7 +13,7 @@ import java.io.IOException;
 
 public class World {
 
-    private Tile[] tiles;
+    public static Tile[] tiles;
 
     public static int width, heigth;
 
@@ -77,5 +77,23 @@ public class World {
         }
     }
 
+    public static boolean isFree(int nextX, int nextY){
+        int x1 = nextX / ImageSize.Size;
+        int y1 = nextY / ImageSize.Size;
+
+        int x2 = (nextX + ImageSize.Size + 1 )/ ImageSize.Size;
+        int y2 = (nextY + ImageSize.Size)/ ImageSize.Size;
+
+        int x3 = (nextX + ImageSize.Size)/ ImageSize.Size;
+        int y3 = (nextY + ImageSize.Size + 1 )/ ImageSize.Size;
+
+        int x4 = (nextX + ImageSize.Size + 1 )/ ImageSize.Size;
+        int y4 = (nextY + ImageSize.Size + 1 )/ ImageSize.Size;
+
+        return !(tiles[x1  + (y1*World.width)] instanceof WallTile ||
+                tiles[x2  + (y2*World.width)] instanceof WallTile||
+                tiles[x3  + (y3*World.width)] instanceof WallTile||
+                tiles[x4  + (y4*World.width)] instanceof WallTile);
+    }
 
 }
