@@ -4,6 +4,7 @@ import br.com.game.entities.Enemy;
 import br.com.game.entities.Entity;
 import br.com.game.entities.Player;
 import br.com.game.grafics.SpriteSheet;
+import br.com.game.grafics.UI;
 import br.com.game.world.World;
 
 import javax.swing.*;
@@ -14,8 +15,11 @@ import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class Game extends Canvas implements Runnable, KeyListener {
+
+    private static boolean showFPS = false;
 
     public double FPS = 60;
 
@@ -35,16 +39,20 @@ public class Game extends Canvas implements Runnable, KeyListener {
     public static  List<Enemy> enemyList;
     public static SpriteSheet spriteSheet;
 
+    public UI ui;
+
     public static World world;
 
     public static Player player;
+
+    public static Random random;
 
     public Game() {
         addKeyListener(this);
         this.setPreferredSize(new Dimension(width, height));
         initFrame();
         //Inicia Objetos
-
+        ui = new UI();
         image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
         entityList = new ArrayList<Entity>();
         enemyList = new ArrayList<Enemy>();
@@ -52,6 +60,8 @@ public class Game extends Canvas implements Runnable, KeyListener {
 
         player = new Player(0, 0, ImageSize.Size, ImageSize.Size, spriteSheet.getSprite(0, 0, ImageSize.Size, ImageSize.Size));
         entityList.add(player);
+
+        random = new Random();
 
         world = new World("/Map.png");
 
@@ -110,7 +120,9 @@ public class Game extends Canvas implements Runnable, KeyListener {
             }
 
             if (System.currentTimeMillis() - timer >= 1000) {
-                System.out.println("FPS: " + frames);
+                if(showFPS) {
+                    System.out.println("FPS: " + frames);
+                }
                 frames = 0;
                 timer += 1000;
             }
@@ -146,6 +158,7 @@ public class Game extends Canvas implements Runnable, KeyListener {
             Entity entity = entityList.get(i);
             entity.render(g);
         }
+        ui.render(g);
         g.dispose();
         g = bs.getDrawGraphics();
         g.drawImage(image, 0, 0, width, height, null);
@@ -159,7 +172,6 @@ public class Game extends Canvas implements Runnable, KeyListener {
 
     public void keyPressed(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_W) {
-            System.out.println("up");
             player.up = true;
         } else if (e.getKeyCode() == KeyEvent.VK_S) {
             player.down = true;
@@ -174,7 +186,6 @@ public class Game extends Canvas implements Runnable, KeyListener {
 
     public void keyReleased(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_W) {
-            System.out.println("up");
             player.up = false;
         } else if (e.getKeyCode() == KeyEvent.VK_S) {
             player.down = false;

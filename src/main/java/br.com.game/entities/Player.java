@@ -24,6 +24,10 @@ public class Player extends Entity {
     private boolean moved = false;
     private int frames = 0, maxFrames = 5, index = 0, maxIdex = 0;
 
+    public static int maxLife = 100;
+    public static double life = 100;
+
+
     public Player(int x, int y, int width, int height, BufferedImage sprite) {
         super(x, y, width, height, sprite);
         rigthPlayer = new BufferedImage[1];

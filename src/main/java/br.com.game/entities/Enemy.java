@@ -17,6 +17,7 @@ public class Enemy extends Entity {
 
     @Override
     public void tick() {
+        if(isColiddingWithPlayer() == false){
         if(Game.player.getX() < this.getX() && World.isFree((int)(getX()-speed),getY()) && !(isColidding((int)(getX()-speed),getY()))){
             x-=(int)(speed);
         }
@@ -29,8 +30,24 @@ public class Enemy extends Entity {
         if(Game.player.getY() > this.getY()&& World.isFree(getX(),(int)(getY()+speed)) && !(isColidding(getX(),(int)(getY()+speed)))){
             y += (int)(speed);
         }
+    }else {
+            if(Game.random.nextInt(100) < 10) {
+                Game.player.life--;
+                System.out.println("VIDA: " + Game.player.life);
+            }
+            if(Game.player.life == 0){
+                System.exit(1);
+            }
+        }
+
     }
 
+
+    public boolean isColiddingWithPlayer(){
+        Rectangle enemy = new Rectangle(this.getX(),this.getY(),ImageSize.Size,ImageSize.Size);
+        Rectangle player = new Rectangle(Game.player.getX(),Game.player.getY(), ImageSize.Size,ImageSize.Size);
+        return enemy.intersects(player);
+    }
 
     public boolean isColidding(int xNext, int  yNext){
         Rectangle rectangleOfThisEnemy = new Rectangle(xNext,yNext, ImageSize.Size,ImageSize.Size);
