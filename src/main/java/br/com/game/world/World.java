@@ -46,7 +46,9 @@ public class World {
                         Game.player.setY(yy * ImageSize.Size);
                     } else if (pixel == 0xFFFF0000) {
                         //Enemy
-                        Game.entityList.add(new Enemy(xx * ImageSize.Size, yy * ImageSize.Size, ImageSize.Size, ImageSize.Size, Entity.enemy));
+                        Enemy enemy = (new Enemy(xx * ImageSize.Size, yy * ImageSize.Size, ImageSize.Size, ImageSize.Size, Entity.enemy));
+                        Game.entityList.add(enemy);
+                        Game.enemyList.add (enemy);
                     } else if (pixel == 0xFF0094FF) {
                         //LifePack
                         Game.entityList.add(new LifePack(xx * ImageSize.Size, yy * ImageSize.Size, ImageSize.Size, ImageSize.Size, Entity.life));

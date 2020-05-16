@@ -1,5 +1,6 @@
 package br.com.game;
 
+import br.com.game.entities.Enemy;
 import br.com.game.entities.Entity;
 import br.com.game.entities.Player;
 import br.com.game.grafics.SpriteSheet;
@@ -31,6 +32,7 @@ public class Game extends Canvas implements Runnable, KeyListener {
     private BufferedImage image;
 
     public static List<Entity> entityList;
+    public static  List<Enemy> enemyList;
     public static SpriteSheet spriteSheet;
 
     public static World world;
@@ -45,6 +47,7 @@ public class Game extends Canvas implements Runnable, KeyListener {
 
         image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
         entityList = new ArrayList<Entity>();
+        enemyList = new ArrayList<Enemy>();
         spriteSheet = new SpriteSheet("/SpritesSheets.png");
 
         player = new Player(0, 0, ImageSize.Size, ImageSize.Size, spriteSheet.getSprite(0, 0, ImageSize.Size, ImageSize.Size));

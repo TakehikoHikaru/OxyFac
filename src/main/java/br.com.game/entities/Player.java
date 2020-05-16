@@ -40,16 +40,16 @@ public class Player extends Entity {
     @Override
     public void tick() {
         moved = false;
-        if (rigth && World.isFree((int) (this.getX() + speed), y)) {
+        if (rigth && World.isFree((int)(this.getX() + speed), y)) {
             moved = true;
             stay = stayRigth;
             x += speed;
-        } else if (left && World.isFree((int) (this.getX() - speed), y)) {
+        } else if (left && World.isFree((int)(this.getX() - speed), y)) {
             moved = true;
             stay = stayLeft;
             x -= speed;
         }
-        if (up && World.isFree(this.getX(), (int) (y - speed))) {
+        if (up && World.isFree(this.getX(), (int)(y - speed))) {
             moved = true;
             stay = stayUp;
             y -= speed;
