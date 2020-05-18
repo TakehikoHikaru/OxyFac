@@ -51,7 +51,8 @@ public class World {
                         Game.enemyList.add (enemy);
                     } else if (pixel == 0xFF0094FF) {
                         //LifePack
-                        Game.entityList.add(new LifePack(xx * ImageSize.Size, yy * ImageSize.Size, ImageSize.Size, ImageSize.Size, Entity.life));
+                        LifePack lifePack = new LifePack(xx * ImageSize.Size, yy * ImageSize.Size, ImageSize.Size, ImageSize.Size, Entity.life);
+                        Game.entityList.add(lifePack);
                     }
 
                 }

@@ -16,7 +16,13 @@ public class Entity {
     protected int width;
     protected int height;
 
-    private BufferedImage sprite;
+    private static int xMask;
+    private static int yMask;
+    private int mWidth;
+    private int mHeight;
+
+
+    protected BufferedImage sprite;
 
     public Entity(int x, int y, int width, int height, BufferedImage sprite) {
         this.x = x;
@@ -24,6 +30,18 @@ public class Entity {
         this.width = width;
         this.height = height;
         this.sprite = sprite;
+
+        xMask =0;
+        yMask =0;
+        mWidth = width;
+        mHeight = height;
+    }
+
+    public void setMask(int xMask,int yMask,int mWidth, int mHeight){
+        this.yMask = yMask;
+        this.xMask = xMask;
+        this.mHeight = mHeight;
+        this.mWidth = mWidth;
     }
 
     public int getX() {
@@ -71,7 +89,20 @@ public class Entity {
     }
 
     public void render(Graphics g){
+
         g.drawImage(sprite,this.getX() - Camera.getX(),this.getY() - Camera.getY(),null);
+
+        //Debug
+        g.setColor(Color.cyan);
+        g.fillRect(this.getX() + xMask - Camera.getX(),this.getY() + yMask - Camera.getY(), mWidth,mHeight );
+
+    }
+
+
+    public static boolean isColidding(Entity e1,Entity e2){
+        Rectangle e1Mask = new Rectangle(e1.getX() + e1.xMask,e1.getY() + yMask ,e1.mWidth,e1.mHeight);
+        Rectangle e2Mask = new Rectangle(e2.getX() + e2.xMask,e2.getY() + yMask ,e2.mWidth,e2.mHeight);
+    return e1Mask.intersects(e2Mask);
     }
 
 

@@ -2,6 +2,7 @@ package br.com.game.entities;
 
 import br.com.game.Game;
 import br.com.game.ImageSize;
+import br.com.game.world.Camera;
 import br.com.game.world.World;
 
 import java.awt.*;
@@ -9,7 +10,7 @@ import java.awt.image.BufferedImage;
 
 public class Enemy extends Entity {
 
-    private double speed = 1;
+    private double speed = 3;
 
     public Enemy(int x, int y, int width, int height, BufferedImage sprite) {
         super(x, y, width, height, sprite);
@@ -63,5 +64,10 @@ public class Enemy extends Entity {
             }
         }
         return false;
+    }
+
+    @Override
+    public void render(Graphics g) {
+        g.drawImage(sprite,this.getX() - Camera.getX(),this.getY() - Camera.getY(),null);
     }
 }
